@@ -1,0 +1,154 @@
+/* Global Styles */
+:root {
+  --primary-color: #1a1a1a;
+  /* Dark background color */
+  --accent-color: #00ff00;
+  /* Neon green */
+  --text-color: #f1f1f1;
+  /* Light text color */
+  --highlight-color: #ff2a68;
+  /* Accent color for emphasis */
+  --button-bg: #333333;
+  --button-hover-bg: #444444;
+  --border-radius: 8px;
+  --font-family: 'Roboto', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 20%, rgba(0, 255, 0, 0.6) 60%, rgba(0, 0, 0, 0.9) 80%);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  padding: 2em;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  flex-grow: 1;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 1.5em;
+  color: var(--accent-color);
+  letter-spacing: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+button {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  padding: 12px 20px;
+  border-radius: var(--border-radius);
+  font-size: 1.1em;
+  font-weight: bold;
+  border: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.5em;
+  width: 200px;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg);
+  transform: translateY(-3px);
+}
+
+button:focus {
+  outline: 2px solid var(--highlight-color);
+}
+
+button:active {
+  background-color: var(--accent-color);
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+input[type="file"] {
+  color: transparent;
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  padding: 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 1em;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: var(--accent-color);
+  color: black;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 4px;
+}
+
+input[type="file"]:hover {
+  background-color: hsl(120, 59%, 41%);
+}
+
+/* Input fields */
+input[type="text"],
+input[type="file"] {
+  font-size: 1em;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--text-color);
+  margin: 10px 0;
+  width: 100%;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 5px var(--highlight-color);
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 1em;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--accent-color);
+  background-color: transparent;
+  color: var(--text-color);
+  resize: none;
+  height: 100px;
+}
+
+textarea:focus {
+  border-color: var(--highlight-color);
+  box-shadow: 0 0 5px var(--highlight-color);
+}
+
+/* Flexbox centering for elements */
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
