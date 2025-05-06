@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { encodeMessage } from "../utils/stego";
-import { saveAs } from "file-saver";
+import { encodeMessage } from "../utils/stego"; // Ensure this handles encryption
 
 function Encoder() {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
-  const [encodedImage, setEncodedImage] = useState(null);
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -16,39 +16,57 @@ function Encoder() {
     }
   };
 
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
-  };
+  const handleEncode = async () => {
+    if (!message || !image || !password) {
+      setStatus("❌ All fields are required");
+      return;
+    }
 
-  const handleEncode = () => {
-    if (message && image) {
-      encodeMessage(image, message).then((encodedImg) => {
-        setEncodedImage(encodedImg);
-        const link = document.createElement("a");
-        link.href = encodedImg;
-        link.download = "encoded_image.png";
-        link.click();
-      });
+    setStatus("🔐 Encoding...");
+    try {
+      const encodedImg = await encodeMessage(image, message, password);
+      setStatus("✅ Message encoded successfully!");
+
+      // Automatically download the encoded image
+      const link = document.createElement("a");
+      link.href = encodedImg;
+      link.download = "encoded_image.png";
+      document.body.appendChild(link); // Needed for Firefox
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      setStatus("❌ Failed to encode. Try again.");
+      console.error(err);
     }
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      <input
-        type="text"
-        placeholder="Enter message to hide"
-        value={message}
-        onChange={handleMessageChange}
-      />
-      <button onClick={handleEncode}>Encode</button>
+    <div style={{ textAlign: "center", marginTop: "30px" }}>
+      <h2>Encode Message</h2>
 
-      {encodedImage && (
-        <div>
-          <h3>Encoded Image:</h3>
-          <img src={encodedImage} alt="Encoded" />
-        </div>
-      )}
+      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <br />
+      <br />
+
+      <textarea
+        placeholder="Enter secret message"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <br />
+      <br />
+
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br />
+      <br />
+
+      <button onClick={handleEncode}>Encode</button>
+      <p>{status}</p>
     </div>
   );
 }
